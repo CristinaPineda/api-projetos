@@ -50,4 +50,28 @@ router.get('/', async (req, res) => {
   };
 });
 
+router.patch('/:idProjec', async (req, res) => {
+  const idProject = req.params.idProjec;
+  const { idProjec, titleProject, descriptionProject, linkApp, linkRepository, imageProject } = req.body;
+
+  const project = {
+    titleProject,
+    descriptionProject,
+    linkApp,
+    linkRepository,
+    imageProject,
+  };
+
+  try {
+    const upDateProject = await Project.updateOne({ idProjec: idProject }, project);
+    if(upDateProject.matchedCount === 0) {
+      res.status(422).json({ message: 'Projeto não encontrado!'});
+      return;
+    }
+    res.status(200).json({ message: `Projeto ${project.titleProject} atualizado com sucesso!`});
+  } catch (error) {
+    res.status(500).json({ error: error });
+  };
+});
+
 module.exports = router;
