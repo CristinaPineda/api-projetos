@@ -74,4 +74,21 @@ router.patch('/:idProjec', async (req, res) => {
   };
 });
 
+router.delete('/:idProject', async (req, res) => {
+  const id = req.params.idProject;
+  const projectDel = await Project.findOne({ _id: id });
+
+  if(!projectDel) {
+    res.status(422).json({ message: 'Projeto não encontrado!'});
+    return;
+  };
+
+  try {
+    await Project.deleteOne({ _id: id });
+    res.status(200).json({ message: "Projeto removido com sucesso!" });
+  } catch (error) {
+    res.status(500).json({ error: error });
+  };
+})
+
 module.exports = router;
