@@ -1,9 +1,11 @@
 const express = require("express");
 const exphbs = require("express-handlebars");
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 const app = express();
 const hbs = exphbs.create();
+const KEY = process.env.KEY;
 const PORT_URL = 5000;
 
 app.engine("handlebars", hbs.engine);
@@ -30,7 +32,7 @@ app.get("/", (_req, res) => {
 
 mongoose
   .connect(
-    "mongodb+srv://projectsCris:O9DAZan5EUtgjl5n@apicluster.ue08x.mongodb.net/bancoProjetos?retryWrites=true&w=majority"
+    `mongodb+srv://projectsCris:${KEY}@apicluster.ue08x.mongodb.net/bancoProjetos?retryWrites=true&w=majority`
   )
   .then(() => {
     console.log("MongodbAtlas connect");

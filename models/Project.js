@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 const Project = mongoose.model('Project', {
-  titleProject: string,
-  descriptionProject: string,
-  linkApp: string,
-  linkRepository: string,
-  imageProject: image,
+  titleProject: String,
+  descriptionProject: String,
+  linkApp: String,
+  linkRepository: String,
+  imageProject: String,
 });
 
 module.exports = Project;
