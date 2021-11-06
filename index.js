@@ -8,6 +8,8 @@ const PORT_URL = 5000;
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 
+app.use(express.static('public'));
+
 app.get("/", (_req, res) => {
   const name = "Projeto API";
   res.render("home", { name });
