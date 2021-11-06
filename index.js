@@ -26,7 +26,7 @@ const projectRoutes = require("./routes/projectRoutes");
 app.use("/project", projectRoutes);
 
 app.get("/", (_req, res) => {
-  const name = "Projeto API";
+  const name = "API projetos pessoais";
   res.render("home", { name });
 });
 
