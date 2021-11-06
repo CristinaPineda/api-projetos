@@ -26,12 +26,28 @@ router.post('/', async (req, res) => {
   };
 });
 
-router.get("/", async (_req, res) => {
+router.get('/:idProject', async (req, res) => {
   try {
-    res.status(200).json({ message: "Tudo funcionando" });
+    const idProject = req.params.idProject;
+    const projectId = await Project.findOne({ _id: idProject });
+    if(!projectId) {
+      res.status(422).json({ message: 'Projeto não encontrado!'});
+      return;
+    }
+    res.status(200).json(projectId);
   } catch (error) {
     res.status(500).json({ error: error });
-  }
+  };
+});
+
+router.get('/', async (req, res) => {
+  try {
+    const project = await Project.find();
+    res.status(200).json(project);
+    
+  } catch (error) {
+    res.status(500).json({ error: error });
+  };
 });
 
 module.exports = router;
