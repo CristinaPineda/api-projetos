@@ -10,3 +10,6 @@ router.get("/", async (_req, res) => {
 });
 
 module.exports = router;
+
+// username: projectsCris
+// senha: O9DAZan5EUtgjl5n
