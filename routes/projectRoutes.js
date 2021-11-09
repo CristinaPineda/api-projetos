@@ -26,29 +26,6 @@ router.post('/', async (req, res) => {
   };
 });
 
-router.post('/user', async (req, res) => {
-  const { idUserApi, passUserApi } = req.body;
-
-  if (!idUserApi || !passUserApi) {
-    res.status(422).json({ message: 'Todos campos são obrigatórios'});
-    return;
-  }
-
-  const user = {
-    idUserApi,
-    passUserApi
-  };
-
-  try {
-    await Project.create(user);
-    res.status(201).json({ message: 'Usuário inserido no banco com sucesso'});
-
-  } catch (error) {
-    res.status(500).json({ error: error });
-  };
-
-})
-
 router.get('/:idProject', async (req, res) => {
   try {
     const idProject = req.params.idProject;
@@ -112,6 +89,37 @@ router.delete('/:idProject', async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error });
   };
+})
+
+router.post('/user', async (req, res) => {
+  const { idUserApi, passUserApi } = req.body;
+
+  if (!idUserApi || !passUserApi) {
+    res.status(422).json({ message: 'Todos campos são obrigatórios'});
+    return;
+  }
+
+  const user = {
+    idUserApi,
+    passUserApi
+  };
+
+  try {
+    await Project.create(user);
+    res.status(201).json({ message: 'Usuário inserido no banco com sucesso'});
+
+  } catch (error) {
+    res.status(500).json({ error: error });
+  };
+
+})
+
+router.post('/users/login', async (req, res) => {
+  res.send(await Login(req.body))
+})
+
+router.get('/users/logoff', async (req, res) => {
+  res.send(await Logoff())
 })
 
 module.exports = router;
