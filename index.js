@@ -6,9 +6,9 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 require("dotenv").config();
 
-const Login = require('./controllers/Users/Login');
-const Logged = require('./controllers/Users/Logged');
-const Logoff = require('./controllers/Users/Logoff');
+// const Login = require('./controllers/Users/Login');
+// const Logged = require('./controllers/Users/Logged');
+// const Logoff = require('./controllers/Users/Logoff');
 
 const app = express();
 app.use(cors());

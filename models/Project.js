@@ -6,6 +6,8 @@ const Project = mongoose.model('Project', {
   linkApp: String,
   linkRepository: String,
   imageProject: String,
+  idUserApi: String,
+  passUserApi: String,
 });
 
 module.exports = Project;
