@@ -1,10 +1,8 @@
 const express = require("express");
 const exphbs = require("express-handlebars");
-const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
-require("dotenv").config();
 
 // const Login = require('./controllers/Users/Login');
 // const Logged = require('./controllers/Users/Logged');
@@ -31,6 +29,8 @@ app.use(
 
 app.use(express.json());
 
+const Database = require("./database");
+
 const projectRoutes = require("./routes/projectRoutes");
 
 app.use("/project", projectRoutes);
@@ -40,12 +40,6 @@ app.get("/", (_req, res) => {
   res.render("home", { name });
 });
 
-mongoose
-  .connect(
-    `mongodb+srv://projectsCris:${KEY}@apicluster.ue08x.mongodb.net/bancoProjetos?retryWrites=true&w=majority`
-  )
-  .then(() => {
-    console.log("MongodbAtlas connect");
-    app.listen(PORT_URL);
-  })
-  .catch((err) => console.log(err));
+app.listen(PORT_URL, () => {
+  console.log("Servidor online")
+});
