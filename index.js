@@ -1,9 +1,19 @@
 const express = require("express");
 const exphbs = require("express-handlebars");
 const mongoose = require("mongoose");
+const cors = require("cors");
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 require("dotenv").config();
 
+const Login = require('./controllers/Users/Login');
+const Logged = require('./controllers/Users/Logged');
+const Logoff = require('./controllers/Users/Logoff');
+
 const app = express();
+app.use(cors());
+app.use(bodyParser.json());
+app.use(cookieParser());
 const hbs = exphbs.create();
 const KEY = process.env.KEY;
 const PORT_URL = 5000;
