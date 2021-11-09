@@ -3,9 +3,9 @@ const exphbs = require("express-handlebars");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const Logged = require('./controllers/Users/Logged');
 
 // const Login = require('./controllers/Users/Login');
-// const Logged = require('./controllers/Users/Logged');
 // const Logoff = require('./controllers/Users/Logoff');
 
 const app = express();
@@ -13,7 +13,6 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(cookieParser());
 const hbs = exphbs.create();
-const KEY = process.env.KEY;
 const PORT_URL = 5000;
 
 app.engine("handlebars", hbs.engine);
@@ -40,6 +39,10 @@ app.get("/", (_req, res) => {
   res.render("home", { name });
 });
 
+app.get("/private", Logged, (_req, res) => {
+  res.send("Private page");
+});
+
 app.listen(PORT_URL, () => {
-  console.log("Servidor online")
+  console.log("Servidor online");
 });
