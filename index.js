@@ -1,11 +1,8 @@
 const express = require("express");
 const exphbs = require("express-handlebars");
-const mongoose = require("mongoose");
-require("dotenv").config();
 
 const app = express();
 const hbs = exphbs.create();
-const KEY = process.env.KEY;
 const PORT_URL = 5000;
 
 app.engine("handlebars", hbs.engine);
@@ -25,17 +22,13 @@ const projectRoutes = require("./routes/projectRoutes");
 
 app.use("/project", projectRoutes);
 
+const Database = require('./database');
+
 app.get("/", (_req, res) => {
   const name = "API projetos pessoais";
   res.render("home", { name });
 });
 
-mongoose
-  .connect(
-    `mongodb+srv://projectsCris:${KEY}@apicluster.ue08x.mongodb.net/bancoProjetos?retryWrites=true&w=majority`
-  )
-  .then(() => {
-    console.log("MongodbAtlas connect");
-    app.listen(PORT_URL);
-  })
-  .catch((err) => console.log(err));
+app.listen(PORT_URL, () => {
+  console.log('Servidor rodando')
+});
