@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const jsonwebtoken = require("jsonwebtoken");
 
-const User = require("../../Schemas/User");
+// const User = require("./../Schemas/User");
 
 async function Login(body) {
   const email = body.email;

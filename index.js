@@ -5,9 +5,6 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const Logged = require('./controllers/Users/Logged');
 
-// const Login = require('./controllers/Users/Login');
-// const Logoff = require('./controllers/Users/Logoff');
-
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
