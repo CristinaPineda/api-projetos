@@ -8,10 +8,10 @@ mongoose
     `mongodb+srv://projectsCris:${KEY}@apicluster.ue08x.mongodb.net/bancoProjetos?retryWrites=true&w=majority`
   )
   .then(() => {
-    console.log("MongodbAtlas connect");
+    console.log("MongodbAtlas conectado");
   })
   .catch((err) => console.log(err));
 
-  const bd = mongoose.connection;
+const bd = mongoose.connection;
 
-  module.exports = bd;
+module.exports = bd;
