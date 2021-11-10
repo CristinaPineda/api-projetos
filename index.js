@@ -1,10 +1,19 @@
 const express = require("express");
 const exphbs = require("express-handlebars");
+const session = require("express-session");
+const bodyParser = require("body-parser");
+require("dotenv").config();
+
+const SECRET = process.env.SECRET;
+const ADMIN = process.env.ADMIN;
+const LOG = process.env.LOG;
 
 const app = express();
 const hbs = exphbs.create();
 const PORT_URL = 5000;
 
+app.use(session({secret : SECRET }));
+app.use(bodyParser.urlencoded({extended: true}));
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 
@@ -24,9 +33,20 @@ app.use("/project", projectRoutes);
 
 const Database = require('./database');
 
-app.get("/", (_req, res) => {
-  const name = "API projetos pessoais";
-  res.render("home", { name });
+app.post("/", (req, res) => {
+  if (req.body.id == ADMIN && req.body.pass == LOG) {
+    req.session.id = ADMIN;
+    const teste = "Logado"
+    res.render("admin", { teste })
+  } else {
+    const name = "API projetos pessoais";
+    res.render("home", { name })
+  }
+})
+
+app.get("/", (req, res) => {
+    const name = "API projetos pessoais";
+    res.render("home", { name });
 });
 
 app.listen(PORT_URL, () => {
