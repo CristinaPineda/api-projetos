@@ -36,10 +36,10 @@ const Database = require('./database');
 app.post("/", (req, res) => {
   if (req.body.id == ADMIN && req.body.pass == LOG) {
     req.session.id = ADMIN;
-    const teste = "Logado"
-    res.render("admin", { teste })
+    const system = "Logado"
+    res.render("admin", { system })
   } else {
-    const name = "API projetos pessoais";
+    const name = "Rota post ";
     res.render("home", { name })
   }
 })
