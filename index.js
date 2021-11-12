@@ -1,9 +1,9 @@
+require("dotenv").config();
 const express = require("express");
 const exphbs = require("express-handlebars");
 const session = require("express-session");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-require("dotenv").config();
 
 const SECRET = process.env.SECRET;
 

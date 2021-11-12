@@ -1,5 +1,5 @@
-const routerRoot = require("express").Router();
 require("dotenv").config();
+const routerRoot = require("express").Router();
 
 const ADMIN = process.env.ADMIN;
 const LOG = process.env.LOG;
