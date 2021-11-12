@@ -1,20 +1,22 @@
 const URL = "http://localhost:5000";
 
-const getApi = () => {
-  axios
-    .get(`${URL}/project`)
-    .then((response) => console.log(response.data))
-    .catch((error) => console.log(error));
-    const criaListaDinamica = (data) => {
-      const ulProjetos = document.getElementById("projects");
-      data.map((projeto) => {
-        const listaProjeto = document.createElement("li");
-        listaProjeto.innerHTML = `Nome do projeto: ${projeto.titleProject}`;
-        ulProjetos.appendChild(listaProjeto);
-      });
-    };
-  };
-  
+async function getApi() {
+  const source = document.getElementById("entry-template").innerHTML;
+  const response = await axios({
+    url: `${URL}/project`,
+    method: "GET",
+  })
+  const data = response.data;
+  console.log(data)
+  const pro = [
+    {
+      titleProject: data.titleProject,
+      descriptionProject: data.descriptionProject
+    }
+  ]
+  return pro;
+};
+
 
 const allProjects = document.getElementById("all");
 allProjects.addEventListener("click", () => { getApi()});
