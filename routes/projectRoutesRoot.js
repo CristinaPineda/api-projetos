@@ -4,6 +4,12 @@ require("dotenv").config();
 const ADMIN = process.env.ADMIN;
 const LOG = process.env.LOG;
 
+routerRoot.get("/", (_req, res) => {
+    const name = "API projetos pessoais";
+    res.render("home", { name });
+    return
+});
+
 routerRoot.post("/", (req, res) => {
   if (req.body.id == ADMIN && req.body.pass == LOG) {
     req.session.id = ADMIN;
@@ -15,11 +21,5 @@ routerRoot.post("/", (req, res) => {
   }
   return
 })
-
-routerRoot.get("/", (req, res) => {
-    const name = "API projetos pessoais";
-    res.render("home", { name });
-    return
-});
 
 module.exports = routerRoot;
