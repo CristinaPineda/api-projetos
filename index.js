@@ -2,6 +2,7 @@ const express = require("express");
 const exphbs = require("express-handlebars");
 const session = require("express-session");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 require("dotenv").config();
 
 const SECRET = process.env.SECRET;
@@ -27,6 +28,8 @@ app.use(
 
 app.use(express.json());
 
+app.use(cors());
+
 const projectRoutes = require("./routes/projectRoutes");
 
 app.use("/project", projectRoutes);
@@ -36,7 +39,7 @@ const Database = require('./database');
 app.post("/", (req, res) => {
   if (req.body.id == ADMIN && req.body.pass == LOG) {
     req.session.id = ADMIN;
-    const system = "Logado"
+    const system = "API Projetos de portifólio"
     res.render("admin", { system })
   } else {
     const name = "Rota post ";
