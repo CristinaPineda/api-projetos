@@ -10,7 +10,7 @@ routerRoot.post("/", (req, res) => {
     const system = "API Projetos de portifólio"
     res.render("admin", { system })
   } else {
-    const name = "Rota post ";
+    const name = "É necessário ter autorização para entrar!";
     res.render("home", { name })
   }
 })
