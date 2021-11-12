@@ -13,11 +13,13 @@ routerRoot.post("/", (req, res) => {
     const name = "É necessário ter autorização para entrar!";
     res.render("home", { name })
   }
+  return
 })
 
 routerRoot.get("/", (req, res) => {
     const name = "API projetos pessoais";
     res.render("home", { name });
+    return
 });
 
 module.exports = routerRoot;
