@@ -36,28 +36,7 @@ const Database = require("./database");
 
 const projectRoutesRoot = require("./routes/projectRoutesRoot");
 
-// app.use("/", projectRoutesRoot);
-
-const ADMIN = process.env.ADMIN;
-const LOG = process.env.LOG;
-
-app.get("/", (_req, res) => {
-    const name = "API projetos pessoais";
-    res.render("home", { name });
-    return
-});
-
-app.post("/", (req, res) => {
-  if (req.body.id == ADMIN && req.body.pass == LOG) {
-    req.session.id = ADMIN;
-    const system = "API Projetos de portifólio"
-    res.render("admin", { system })
-  } else {
-    const name = "É necessário ter autorização para entrar!";
-    res.render("home", { name })
-  }
-  return
-})
+app.use("/", projectRoutesRoot);
 
 app.listen(PORT_URL, () => {
   console.log("Servidor rodando");

@@ -1,4 +1,4 @@
-const URL = "http://localhost:5000";
+const URL = "https://api-projects-cris.herokuapp.com";
 
 async function getApi() {
   const response = await axios({
