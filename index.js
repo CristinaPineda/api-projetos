@@ -38,6 +38,6 @@ const projectRoutesRoot = require("./routes/projectRoutesRoot");
 
 app.use("/", projectRoutesRoot);
 
-app.listen(PORT_URL, () => {
+app.listen(process.env.PORT || PORT_URL, () => {
   console.log("Servidor rodando");
 });
