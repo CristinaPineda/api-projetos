@@ -9,7 +9,7 @@ const SECRET = process.env.SECRET;
 
 const app = express();
 const hbs = exphbs.create();
-const PORT_URL = 5000;
+const PORT_URL = process.env.PORT || 5000;
 
 app.use(session({ secret: SECRET }));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -38,6 +38,6 @@ const projectRoutesRoot = require("./routes/projectRoutesRoot");
 
 app.use("/", projectRoutesRoot);
 
-app.listen(process.env.PORT || PORT_URL, () => {
+app.listen(PORT_URL, () => {
   console.log("Servidor rodando");
 });
