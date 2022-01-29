@@ -7,7 +7,6 @@ router.post("/", async (req, res) => {
     descriptionProject,
     linkApp,
     linkRepository,
-    imageProject,
   } = req.body;
 
   if (
@@ -26,7 +25,6 @@ router.post("/", async (req, res) => {
     descriptionProject,
     linkApp,
     linkRepository,
-    imageProject,
   };
 
   try {
@@ -68,7 +66,6 @@ router.patch("/:idProjec", async (req, res) => {
     descriptionProject,
     linkApp,
     linkRepository,
-    imageProject,
   } = req.body;
 
   const project = {
@@ -76,7 +73,6 @@ router.patch("/:idProjec", async (req, res) => {
     descriptionProject,
     linkApp,
     linkRepository,
-    imageProject,
   };
 
   try {
