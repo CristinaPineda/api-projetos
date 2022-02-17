@@ -5,6 +5,7 @@ const Project = mongoose.model('Project', {
   descriptionProject: String,
   linkApp: String,
   linkRepository: String,
+  imageProject: String,
   idUserApi: String,
   passUserApi: String,
 });
