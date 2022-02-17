@@ -1,43 +1,38 @@
-require("dotenv").config();
-const express = require("express");
-const exphbs = require("express-handlebars");
-const session = require("express-session");
-const bodyParser = require("body-parser");
-const cors = require("cors");
+import express, { urlencoded, json } from 'express';
+import session from 'express-session';
+import { urlencoded as _urlencoded } from 'body-parser';
+import cors from 'cors';
 
-const SECRET = process.env.SECRET;
+import projectRoutes from './routes/projectRoutes';
+
+import Database from './database';
+
+import projectRoutesRoot from './routes/projectRoutesRoot';
+
+require('dotenv').config();
+
+const { SECRET } = process.env;
 
 const app = express();
-const hbs = exphbs.create();
 const PORT_URL = process.env.PORT || 5000;
 
 app.use(session({ secret: SECRET }));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.engine("handlebars", hbs.engine);
-app.set("view engine", "handlebars");
-
-app.use(express.static("public"));
+app.use(_urlencoded({ extended: true }));
 
 app.use(
-  express.urlencoded({
+  urlencoded({
     extended: true,
-  })
+  }),
 );
 
-app.use(express.json());
+app.use(json());
 
 app.use(cors());
 
-const projectRoutes = require("./routes/projectRoutes");
+app.use('/project', projectRoutes);
 
-app.use("/project", projectRoutes);
-
-const Database = require("./database");
-
-const projectRoutesRoot = require("./routes/projectRoutesRoot");
-
-app.use("/", projectRoutesRoot);
+app.use('/', projectRoutesRoot);
 
 app.listen(PORT_URL, () => {
-  console.log("Servidor rodando");
+  console.log('Servidor rodando');
 });
