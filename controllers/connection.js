@@ -1,17 +1,16 @@
-import { connect, connection } from 'mongoose';
-
-require('dotenv').config();
+import { connect } from 'mongoose';
 
 const { KEY, URI } = process.env;
 
-connect(
-  `mongodb+srv://${KEY}${URI}`,
-)
-  .then(() => {
-    console.log('MongodbAtlas conectado com sucesso!');
+const connectBD = async () => {
+  connect(`${KEY}${URI}`, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
   })
-  .catch((err) => console.log(err));
+    .then(() => {
+      console.log('MongodbAtlas conectado com sucesso!');
+    })
+    .catch((err) => console.log(err));
+};
 
-const bd = connection;
-
-export default bd;
+export default connectBD;
