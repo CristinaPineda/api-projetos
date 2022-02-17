@@ -1,14 +1,14 @@
-const mongoose = require("mongoose");
-require("dotenv").config();
+const mongoose = require('mongoose');
+require('dotenv').config();
 
-const KEY = process.env.KEY;
+const { KEY, URI } = process.env;
 
 mongoose
   .connect(
-    `mongodb+srv://projectsCris:${KEY}@apicluster.ue08x.mongodb.net/bancoProjetos?retryWrites=true&w=majority`
+    `mongodb+srv://${KEY}${URI}`,
   )
   .then(() => {
-    console.log("MongodbAtlas conectado");
+    console.log('MongodbAtlas conectado com sucesso!');
   })
   .catch((err) => console.log(err));
 
