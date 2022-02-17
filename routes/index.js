@@ -1,5 +1,10 @@
-const router = require('express').Router();
-const Project = require('../models/Project');
+import { Router } from 'express';
+
+import {
+  create, findOne, find, updateOne, deleteOne,
+} from '../models/Project';
+
+const router = Router();
 
 router.post('/', async (req, res) => {
   const {
@@ -29,7 +34,7 @@ router.post('/', async (req, res) => {
   };
 
   try {
-    await Project.create(project);
+    await create(project);
     res.status(201).json({ message: 'Projeto inserido no banco com sucesso' });
   } catch (error) {
     res.status(500).json({ error });
@@ -39,7 +44,7 @@ router.post('/', async (req, res) => {
 router.get('/:idProject', async (req, res) => {
   try {
     const { idProject } = req.params;
-    const projectId = await Project.findOne({ _id: idProject });
+    const projectId = await findOne({ _id: idProject });
     if (!projectId) {
       res.status(422).json({ message: 'Projeto não encontrado!' });
       return;
@@ -52,7 +57,7 @@ router.get('/:idProject', async (req, res) => {
 
 router.get('/', async (req, res) => {
   try {
-    const project = await Project.find();
+    const project = await find();
     res.status(200).json(project);
   } catch (error) {
     res.status(500).json({ error });
@@ -76,7 +81,7 @@ router.patch('/:idProjec', async (req, res) => {
   };
 
   try {
-    const upDateProject = await Project.updateOne(
+    const upDateProject = await updateOne(
       { idProjec: idProject },
       project,
     );
@@ -92,7 +97,7 @@ router.patch('/:idProjec', async (req, res) => {
 
 router.delete('/:idProject', async (req, res) => {
   const id = req.params.idProject;
-  const projectDel = await Project.findOne({ _id: id });
+  const projectDel = await findOne({ _id: id });
 
   if (!projectDel) {
     res.status(422).json({ message: 'Projeto não encontrado!' });
@@ -100,7 +105,7 @@ router.delete('/:idProject', async (req, res) => {
   }
 
   try {
-    await Project.deleteOne({ _id: id });
+    await deleteOne({ _id: id });
     res.status(200).json({ message: 'Projeto removido com sucesso!' });
   } catch (error) {
     res.status(500).json({ error });
@@ -121,11 +126,11 @@ router.post('/user', async (req, res) => {
   };
 
   try {
-    await Project.create(user);
+    await create(user);
     res.status(201).json({ message: 'Usuário inserido no banco com sucesso' });
   } catch (error) {
     res.status(500).json({ error });
   }
 });
 
-module.exports = router;
+export default router;
