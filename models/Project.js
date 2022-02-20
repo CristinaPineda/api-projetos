@@ -1,11 +1,22 @@
-const mongoose = require('mongoose');
+import { model } from 'mongoose';
 
-const Project = mongoose.model('Project', {
-  titleProject: String,
-  descriptionProject: String,
-  linkApp: String,
-  idUserApi: String,
-  passUserApi: String,
+const Project = model('Project', {
+  titleProject: {
+    type: String,
+    required: true,
+  },
+  descriptionProject: {
+    type: String,
+    required: true,
+  },
+  linkApp: {
+    type: String,
+    required: true,
+  },
+  imageProject: {
+    type: String,
+    required: true,
+  },
 });
 
-module.exports = Project;
+export default Project;
