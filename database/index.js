@@ -1,15 +1,17 @@
-import { connect, connection } from 'mongoose';
+const mongoose = require("mongoose");
+require("dotenv").config();
 
-const { KEY, URI } = process.env;
+const {KEY, URI } = process.env;
 
-connect(
-  `mongodb+srv://${KEY}${URI}`,
-)
+mongoose
+  .connect(
+    `${KEY}${URI}`
+  )
   .then(() => {
-    console.log('MongodbAtlas conectado com sucesso!');
+    console.log("MongodbAtlas conectado");
   })
   .catch((err) => console.log(err));
 
-const bd = connection;
+const bd = mongoose.connection;
 
-export default bd;
+module.exports = bd;
