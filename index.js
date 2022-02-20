@@ -18,7 +18,11 @@ const app = express();
 
 const PORT_URL = process.env.PORT || 5000;
 
-app.use(session({ secret: SECRET }));
+app.use(session({
+  secret: SECRET,
+  resave: true,
+  saveUninitialized: true,
+}));
 app.use(urlencoded({ extended: true }));
 app.use(json());
 app.use(cors());
