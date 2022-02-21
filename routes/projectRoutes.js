@@ -4,7 +4,7 @@ import Project from '../models/Project.js';
 
 const router = Router();
 
-router.get('/', async (req, res) => {
+router.get('/project', async (req, res) => {
   try {
     const project = await Project.find();
     res.status(200).json(project);
@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/:idProject', async (req, res) => {
+router.get('/project/:idProject', async (req, res) => {
   try {
     const { idProject } = req.params;
     const projectId = await Project.findOne({ _id: idProject });
@@ -27,7 +27,7 @@ router.get('/:idProject', async (req, res) => {
   }
 });
 
-router.post('/', async (req, res) => {
+router.post('/project', async (req, res) => {
   const {
     titleProject,
     descriptionProject,
@@ -63,7 +63,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.patch('/:idProjec', async (req, res) => {
+router.patch('/project/:idProjec', async (req, res) => {
   const idProject = req.params.idProjec;
   const {
     // idProjec,
@@ -95,7 +95,7 @@ router.patch('/:idProjec', async (req, res) => {
   }
 });
 
-router.delete('/:idProject', async (req, res) => {
+router.delete('/project/:idProject', async (req, res) => {
   const id = req.params.idProject;
   const projectDel = await Project.findOne({ _id: id });
 
@@ -107,27 +107,6 @@ router.delete('/:idProject', async (req, res) => {
   try {
     await Project.deleteOne({ _id: id });
     res.status(200).json({ message: 'Projeto removido com sucesso!' });
-  } catch (error) {
-    res.status(500).json({ error });
-  }
-});
-
-router.post('/user', async (req, res) => {
-  const { idUserApi, passUserApi } = req.body;
-
-  if (!idUserApi || !passUserApi) {
-    res.status(422).json({ message: 'Todos campos são obrigatórios' });
-    return;
-  }
-
-  const user = {
-    idUserApi,
-    passUserApi,
-  };
-
-  try {
-    await Project.create(user);
-    res.status(201).json({ message: 'Usuário inserido no banco com sucesso' });
   } catch (error) {
     res.status(500).json({ error });
   }

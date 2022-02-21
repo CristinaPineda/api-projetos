@@ -26,7 +26,7 @@ app.use(urlencoded({ extended: true }));
 app.use(json());
 app.use(cors());
 
-app.use('/project', projectRoutes);
+app.use('/portfolio', projectRoutes);
 
 // teste de rota de servidor
 app.get('/', (_req, res) => res.send({ message: 'Server OK' }));
