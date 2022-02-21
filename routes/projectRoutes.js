@@ -1,35 +1,13 @@
-const router = require('express').Router();
-const Project = require('../models/Project').default;
+import { Router } from 'express';
+// eslint-disable-next-line import/extensions
+import Project from '../models/Project.js';
 
-router.post('/', async (req, res) => {
-  const {
-    titleProject,
-    descriptionProject,
-    linkApp,
-    linkRepository,
-  } = req.body;
+const router = Router();
 
-  if (
-    !titleProject
-    || !descriptionProject
-    || !linkApp
-    || !linkRepository
-    || !imageProject
-  ) {
-    res.status(422).json({ error: 'Todos os campos são obrigatórios' });
-    return;
-  }
-
-  const project = {
-    titleProject,
-    descriptionProject,
-    linkApp,
-    linkRepository,
-  };
-
+router.get('/', async (req, res) => {
   try {
-    await Project.create(project);
-    res.status(201).json({ message: 'Projeto inserido no banco com sucesso' });
+    const project = await Project.find();
+    res.status(200).json(project);
   } catch (error) {
     res.status(500).json({ error });
   }
@@ -49,10 +27,37 @@ router.get('/:idProject', async (req, res) => {
   }
 });
 
-router.get('/', async (req, res) => {
+router.post('/', async (req, res) => {
+  const {
+    titleProject,
+    descriptionProject,
+    linkApp,
+    linkRepository,
+    imageProject,
+  } = req.body;
+
+  if (
+    !titleProject
+    || !descriptionProject
+    || !linkApp
+    || !linkRepository
+    || !imageProject
+  ) {
+    res.status(422).json({ error: 'Todos os campos são obrigatórios' });
+    return;
+  }
+
+  const project = {
+    titleProject,
+    descriptionProject,
+    linkApp,
+    linkRepository,
+    imageProject,
+  };
+
   try {
-    const project = await Project.find();
-    res.status(200).json(project);
+    await Project.create(project);
+    res.status(201).json({ message: 'Projeto inserido no banco com sucesso' });
   } catch (error) {
     res.status(500).json({ error });
   }
@@ -61,7 +66,7 @@ router.get('/', async (req, res) => {
 router.patch('/:idProjec', async (req, res) => {
   const idProject = req.params.idProjec;
   const {
-    idProjec,
+    // idProjec,
     titleProject,
     descriptionProject,
     linkApp,
@@ -128,4 +133,4 @@ router.post('/user', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

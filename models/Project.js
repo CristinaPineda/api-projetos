@@ -1,4 +1,6 @@
-import { model } from 'mongoose';
+import mongoose from 'mongoose';
+
+const { model } = mongoose;
 
 const Project = model('Project', {
   titleProject: {
@@ -10,6 +12,10 @@ const Project = model('Project', {
     required: true,
   },
   linkApp: {
+    type: String,
+    required: true,
+  },
+  linkRepository: {
     type: String,
     required: true,
   },
