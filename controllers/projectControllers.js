@@ -1,11 +1,12 @@
 import Project from '../models/Project.js';
+import StatusCodes from 'http-status-codes';
 
 const getAllProjects = async (req, res) => {
   try {
     const project = await Project.find();
-    res.status(200).json(project);
+    res.status(StatusCodes.OK).json(project);
   } catch (error) {
-    res.status(500).json({ error });
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error });
   }
 }
 
@@ -14,12 +15,12 @@ const getProjectsId = async (req, res) => {
     const { idProject } = req.params;
     const projectId = await Project.findOne({ _id: idProject });
     if (!projectId) {
-      res.status(422).json({ message: 'Projeto não encontrado!' });
+      res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ message: 'Projeto não encontrado!' });
       return;
     }
-    res.status(200).json(projectId);
+    res.status(StatusCodes.OK).json(projectId);
   } catch (error) {
-    res.status(500).json({ error });
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error });
   }
 }
 
@@ -39,7 +40,7 @@ const postProject = async (req, res) => {
     || !linkRepository
     || !imageProject
   ) {
-    res.status(422).json({ error: 'Todos os campos são obrigatórios' });
+    res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ error: 'Todos os campos são obrigatórios' });
     return;
   }
 
@@ -53,9 +54,9 @@ const postProject = async (req, res) => {
 
   try {
     await Project.create(project);
-    res.status(201).json({ message: 'Projeto inserido no banco com sucesso' });
+    res.status(StatusCodes.CREATED).json({ message: 'Projeto inserido no banco com sucesso' });
   } catch (error) {
-    res.status(500).json({ error });
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error });
   }
 }
 
@@ -82,12 +83,12 @@ const patchProjectId = async (req, res) => {
       project,
     );
     if (upDateProject.matchedCount === 0) {
-      res.status(422).json({ message: 'Projeto não encontrado!' });
+      res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ message: 'Projeto não encontrado!' });
       return;
     }
-    res.status(200).json({ message: 'Projeto atualizado com sucesso!' });
+    res.status(StatusCodes.OK).json({ message: 'Projeto atualizado com sucesso!' });
   } catch (error) {
-    res.status(500).json({ error });
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error });
   }
 }
 
@@ -96,15 +97,15 @@ const deleteProject = async (req, res) => {
   const projectDel = await Project.findOne({ _id: id });
 
   if (!projectDel) {
-    res.status(422).json({ message: 'Projeto não encontrado!' });
+    res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ message: 'Projeto não encontrado!' });
     return;
   }
 
   try {
     await Project.deleteOne({ _id: id });
-    res.status(200).json({ message: 'Projeto removido com sucesso!' });
+    res.status(StatusCodes.OK).json({ message: 'Projeto removido com sucesso!' });
   } catch (error) {
-    res.status(500).json({ error });
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error });
   }
 }
 
