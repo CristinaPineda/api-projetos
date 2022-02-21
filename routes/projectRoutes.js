@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import validEntries from '../middlewares/middles.js';
 import {
   getAllProjects,
   getProjectsId,
@@ -11,7 +12,7 @@ const router = Router();
 
 router.get('/project', getAllProjects);
 router.get('/project/:idProject', getProjectsId);
-router.post('/project', postProject);
+router.post('/project',validEntries, postProject);
 router.patch('/project/:idProjec', patchProjectId);
 router.delete('/project/:idProject', deleteProject);
 

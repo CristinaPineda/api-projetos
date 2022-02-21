@@ -24,35 +24,9 @@ const getProjectsId = async (req, res) => {
   }
 }
 
-const postProject = async (req, res) => {
-  const {
-    titleProject,
-    descriptionProject,
-    linkApp,
-    linkRepository,
-    imageProject,
-  } = req.body;
-
-  if (
-    titleProject
-    || !descriptionProject
-    || !linkApp
-    || !linkRepository
-    || !imageProject
-  ) {
-    res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ error: 'Todos os campos são obrigatórios' });
-    return;
-  }
-
-  const project = {
-    titleProject,
-    descriptionProject,
-    linkApp,
-    linkRepository,
-    imageProject,
-  };
-
+const postProject = async (req, res) => {  
   try {
+    let project = req.body;
     await Project.create(project);
     res.status(StatusCodes.CREATED).json({ message: 'Projeto inserido no banco com sucesso' });
   } catch (error) {
@@ -61,27 +35,17 @@ const postProject = async (req, res) => {
 }
 
 const patchProjectId = async (req, res) => {
-  const idProject = req.params.idProjec;
-  const {
-    // idProjec,
-    titleProject,
-    descriptionProject,
-    linkApp,
-    linkRepository,
-  } = req.body;
-
-  const project = {
-    titleProject,
-    descriptionProject,
-    linkApp,
-    linkRepository,
-  };
-
   try {
-    const upDateProject = await Project.updateOne(
-      { idProjec: idProject },
-      project,
-    );
+    const { id } = req.params;
+    const {
+      titleProject,
+      descriptionProject,
+      linkApp,
+      linkRepository,
+      imageProject,
+    } = req.body;
+
+    const upDateProject = await Project.updateOne();
     if (upDateProject.matchedCount === 0) {
       res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ message: 'Projeto não encontrado!' });
       return;
