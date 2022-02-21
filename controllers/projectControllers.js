@@ -108,4 +108,10 @@ const deleteProject = async (req, res) => {
   }
 }
 
-export { getAllProjects, getProjectsId, postProject, patchProjectId, deleteProject }; 
+export {
+  getAllProjects,
+  getProjectsId,
+  postProject,
+  patchProjectId,
+  deleteProject
+}; 
