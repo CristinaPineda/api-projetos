@@ -1,5 +1,5 @@
 import { Router } from 'express';
-// eslint-disable-next-line import/extensions
+
 import Project from '../models/Project.js';
 
 const router = Router();

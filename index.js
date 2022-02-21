@@ -3,10 +3,8 @@ import express, { json } from 'express';
 import session from 'express-session';
 import bodyparser from 'body-parser';
 import dotenv from 'dotenv';
-// eslint-disable-next-line import/extensions
 import projectRoutes from './routes/projectRoutes.js';
 
-// eslint-disable-next-line import/extensions
 import bd from './database/connection.js';
 
 const { urlencoded } = bodyparser;
