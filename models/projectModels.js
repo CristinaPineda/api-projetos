@@ -17,16 +17,8 @@ export async function findRepositoryProject(linkRepository) {
   return linkProject;
 }
 
-export async function postNewProject({
-  titleProject, descriptionProject, linkApp, linkRepository, imageProject,
-}) {
-  const dataProject = await Project.create({
-    titleProject,
-    descriptionProject,
-    linkApp,
-    linkRepository,
-    imageProject,
-  });
+export async function postNewProject(project) {
+  const dataProject = await Project.create(project);
   return dataProject;
 }
 

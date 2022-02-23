@@ -3,6 +3,19 @@ import {
   allProjects, idProjects, newProject, upProject, delDataProject,
 } from '../services/projectServices.js';
 
+async function body(req) {
+  const {
+    titleProject, descriptionProject, linkApp, linkRepository, imageProject,
+  } = req.body;
+  return {
+    titleProject,
+    descriptionProject,
+    linkApp,
+    linkRepository,
+    imageProject,
+  };
+}
+
 export async function getAllProjects(_req, res) {
   try {
     const project = await allProjects();
@@ -27,16 +40,8 @@ export async function getProjectsId(req, res) {
 
 export async function postProject(req, res) {
   try {
-    const {
-      titleProject, descriptionProject, linkApp, linkRepository, imageProject,
-    } = req.body;
-    await newProject({
-      titleProject,
-      descriptionProject,
-      linkApp,
-      linkRepository,
-      imageProject,
-    });
+    const project = await body(req);
+    await newProject(project);
     res.status(StatusCodes.CREATED).json({ message: 'Projeto inserido no banco com sucesso' });
   } catch (error) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error });
@@ -46,18 +51,7 @@ export async function postProject(req, res) {
 export async function patchProjectId(req, res) {
   try {
     const { idProject } = req.params;
-    const {
-      titleProject, descriptionProject, linkApp, linkRepository, imageProject,
-    } = req.body;
-
-    const project = {
-      titleProject,
-      descriptionProject,
-      linkApp,
-      linkRepository,
-      imageProject,
-    };
-
+    const project = await body(req);
     await upProject(idProject, project);
     res.status(StatusCodes.OK).json({ message: 'Projeto atualizado com sucesso!', ...project });
   } catch (error) {

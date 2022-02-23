@@ -19,17 +19,9 @@ export async function idProjects(idProject) {
   return idSearch;
 }
 
-export async function newProject({
-  titleProject, descriptionProject, linkApp, linkRepository, imageProject,
-}) {
-  const postProject = await postNewProject({
-    titleProject,
-    descriptionProject,
-    linkApp,
-    linkRepository,
-    imageProject,
-  });
-  return { postProject };
+export async function newProject(project) {
+  const postProject = await postNewProject(project);
+  return postProject;
 }
 
 export async function upProject(idProject, project) {
