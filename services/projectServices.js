@@ -1,12 +1,14 @@
 import { ObjectId } from 'mongodb';
-import { getAllProjects, findIdProject, postNewProject, updateProject, delProject } from '../models/projectModels.js';
+import {
+  getAllProjects, findIdProject, postNewProject, updateProject, delProject,
+} from '../models/projectModels.js';
 
-const allProjects = async () => {
+async function allProjects() {
   const searchAll = await getAllProjects();
   return searchAll;
-};
+}
 
-const idProjects = async (idProject) => {
+async function idProjects(idProject) {
   if (!ObjectId.isValid(idProject)) {
     return false;
   }
@@ -15,15 +17,11 @@ const idProjects = async (idProject) => {
     return false;
   }
   return idSearch;
-};
+}
 
-const newProject = async ({
-  titleProject,
-  descriptionProject,
-  linkApp,
-  linkRepository,
-  imageProject,
-}) => {
+async function newProject({
+  titleProject, descriptionProject, linkApp, linkRepository, imageProject,
+}) {
   const postProject = await postNewProject({
     titleProject,
     descriptionProject,
@@ -34,14 +32,16 @@ const newProject = async ({
   return { postProject };
 }
 
-const upProject = async (idProject, project) => {
-  const upProject = await updateProject(idProject, project);
-  return upProject;
+async function upProject(idProject, project) {
+  const upProjects = await updateProject(idProject, project);
+  return upProjects;
 }
 
 const delDataProject = async (idProject) => {
   const deleteData = await delProject(idProject);
-    return deleteData;
-}
+  return deleteData;
+};
 
-export { allProjects, idProjects, newProject, upProject, delDataProject };
+export {
+  allProjects, idProjects, newProject, upProject, delDataProject,
+};

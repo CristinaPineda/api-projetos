@@ -1,29 +1,25 @@
-import Project from '../models/Project.js';
 import { ObjectId } from 'mongodb';
+import Project from './Project.js';
 
-const getAllProjects = async () => {
+async function getAllProjects() {
   const searchProject = await Project.find();
   return searchProject;
 }
 
-const findIdProject = async (idProject) => {
+async function findIdProject(idProject) {
   if (!ObjectId.isValid(idProject)) return null;
   const searchId = await Project.findOne({ _id: ObjectId(idProject) });
   return searchId;
-};
+}
 
-const findRepositoryProject = async (linkRepository) => {
+async function findRepositoryProject(linkRepository) {
   const linkProject = await Project.findOne({ linkRepository });
   return linkProject;
-};
+}
 
-const postNewProject = async ({
-  titleProject,
-  descriptionProject,
-  linkApp,
-  linkRepository,
-  imageProject,
-}) => {
+async function postNewProject({
+  titleProject, descriptionProject, linkApp, linkRepository, imageProject,
+}) {
   const dataProject = await Project.create({
     titleProject,
     descriptionProject,
@@ -34,12 +30,12 @@ const postNewProject = async ({
   return dataProject;
 }
 
-const updateProject = async (idProject, project) => {
-  const update = await Project.updateOne({ _id: ObjectId(idProject)}, project);
+async function updateProject(idProject, project) {
+  const update = await Project.updateOne({ _id: ObjectId(idProject) }, project);
   return update;
 }
 
-const delProject = async (idProject) => {
+async function delProject(idProject) {
   if (!ObjectId.isValid(idProject)) return null;
   const searchId = await Project.deleteOne({ _id: ObjectId(idProject) });
   return searchId;
@@ -53,4 +49,3 @@ export {
   updateProject,
   delProject,
 };
-

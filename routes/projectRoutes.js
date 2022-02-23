@@ -5,14 +5,14 @@ import {
   getProjectsId,
   postProject,
   patchProjectId,
-  deleteProject
+  deleteProject,
 } from '../controllers/projectControllers.js';
 
 const router = Router();
 
 router.get('/project', getAllProjects);
 router.get('/project/:idProject', getProjectsId);
-router.post('/project',validEntries, matchProject, postProject);
+router.post('/project', validEntries, matchProject, postProject);
 router.patch('/project/:idProject', validId, patchProjectId);
 router.delete('/project/:idProject', validId, deleteProject);
 

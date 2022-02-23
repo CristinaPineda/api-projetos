@@ -1,8 +1,9 @@
-import Project from '../models/Project.js';
 import StatusCodes from 'http-status-codes';
-import { allProjects, idProjects, newProject, upProject, delDataProject } from '../services/projectServices.js';
+import {
+  allProjects, idProjects, newProject, upProject, delDataProject,
+} from '../services/projectServices.js';
 
-const getAllProjects = async (_req, res) => {
+async function getAllProjects(_req, res) {
   try {
     const project = await allProjects();
     res.status(StatusCodes.OK).json(project);
@@ -11,12 +12,12 @@ const getAllProjects = async (_req, res) => {
   }
 }
 
-const getProjectsId = async (req, res) => {
+async function getProjectsId(req, res) {
   try {
     const { idProject } = req.params;
     const projectId = await idProjects(idProject);
     if (!projectId) {
-      return res.status(StatusCodes.NOT_FOUND).json({message: 'Projeto não encontrado'});
+      res.status(StatusCodes.NOT_FOUND).json({ message: 'Projeto não encontrado' });
     }
     res.status(StatusCodes.OK).json(projectId);
   } catch (error) {
@@ -24,14 +25,10 @@ const getProjectsId = async (req, res) => {
   }
 }
 
-const postProject = async (req, res) => {  
+async function postProject(req, res) {
   try {
     const {
-      titleProject,
-      descriptionProject,
-      linkApp,
-      linkRepository,
-      imageProject,
+      titleProject, descriptionProject, linkApp, linkRepository, imageProject,
     } = req.body;
     await newProject({
       titleProject,
@@ -46,15 +43,11 @@ const postProject = async (req, res) => {
   }
 }
 
-const patchProjectId = async (req, res) => {
+async function patchProjectId(req, res) {
   try {
     const { idProject } = req.params;
     const {
-      titleProject,
-      descriptionProject,
-      linkApp,
-      linkRepository,
-      imageProject,
+      titleProject, descriptionProject, linkApp, linkRepository, imageProject,
     } = req.body;
 
     const project = {
@@ -63,7 +56,7 @@ const patchProjectId = async (req, res) => {
       linkApp,
       linkRepository,
       imageProject,
-    }
+    };
 
     await upProject(idProject, project);
     res.status(StatusCodes.OK).json({ message: 'Projeto atualizado com sucesso!', ...project });
@@ -72,8 +65,8 @@ const patchProjectId = async (req, res) => {
   }
 }
 
-const deleteProject = async (req, res) => {
-  const { idProject} = req.params;
+async function deleteProject(req, res) {
+  const { idProject } = req.params;
   try {
     await delDataProject(idProject);
     res.status(StatusCodes.OK).json({ message: 'Projeto removido com sucesso!' });
@@ -88,4 +81,4 @@ export {
   postProject,
   patchProjectId,
   deleteProject,
-}; 
+};
