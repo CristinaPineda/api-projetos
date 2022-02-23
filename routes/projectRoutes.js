@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { validEntries, matchProject, validId } from '../middlewares/middles.js';
+import { validEntries, matchProject, validId } from '../middlewares/middlewares.js';
 import {
   getAllProjects,
   getProjectsId,

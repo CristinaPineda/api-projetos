@@ -3,7 +3,7 @@ import {
   allProjects, idProjects, newProject, upProject, delDataProject,
 } from '../services/projectServices.js';
 
-async function getAllProjects(_req, res) {
+export async function getAllProjects(_req, res) {
   try {
     const project = await allProjects();
     res.status(StatusCodes.OK).json(project);
@@ -12,7 +12,7 @@ async function getAllProjects(_req, res) {
   }
 }
 
-async function getProjectsId(req, res) {
+export async function getProjectsId(req, res) {
   try {
     const { idProject } = req.params;
     const projectId = await idProjects(idProject);
@@ -25,7 +25,7 @@ async function getProjectsId(req, res) {
   }
 }
 
-async function postProject(req, res) {
+export async function postProject(req, res) {
   try {
     const {
       titleProject, descriptionProject, linkApp, linkRepository, imageProject,
@@ -43,7 +43,7 @@ async function postProject(req, res) {
   }
 }
 
-async function patchProjectId(req, res) {
+export async function patchProjectId(req, res) {
   try {
     const { idProject } = req.params;
     const {
@@ -65,7 +65,7 @@ async function patchProjectId(req, res) {
   }
 }
 
-async function deleteProject(req, res) {
+export async function deleteProject(req, res) {
   const { idProject } = req.params;
   try {
     await delDataProject(idProject);
@@ -74,11 +74,3 @@ async function deleteProject(req, res) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error });
   }
 }
-
-export {
-  getAllProjects,
-  getProjectsId,
-  postProject,
-  patchProjectId,
-  deleteProject,
-};

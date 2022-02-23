@@ -1,7 +1,7 @@
 import StatusCodes from 'http-status-codes';
 import { findRepositoryProject, findIdProject } from '../models/projectModels.js';
 
-async function validEntries(req, res, next) {
+export async function validEntries(req, res, next) {
   const {
     titleProject, descriptionProject, linkApp, linkRepository, imageProject,
   } = req.body;
@@ -17,7 +17,7 @@ async function validEntries(req, res, next) {
   next();
 }
 
-async function matchProject(req, res, next) {
+export async function matchProject(req, res, next) {
   const { linkRepository } = req.body;
   const findProjectMatch = await findRepositoryProject(linkRepository);
   if (findProjectMatch) {
@@ -28,7 +28,7 @@ async function matchProject(req, res, next) {
   next();
 }
 
-const validId = async (req, res, next) => {
+export async function validId(req, res, next) {
   const { idProject } = req.params;
   const idProjectMatch = await findIdProject(idProject);
   if (!idProjectMatch) {
@@ -37,6 +37,4 @@ const validId = async (req, res, next) => {
       .send({ message: 'Projeto não encontrado!' });
   }
   next();
-};
-
-export { validEntries, matchProject, validId };
+}

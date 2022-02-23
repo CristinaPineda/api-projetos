@@ -3,12 +3,12 @@ import {
   getAllProjects, findIdProject, postNewProject, updateProject, delProject,
 } from '../models/projectModels.js';
 
-async function allProjects() {
+export async function allProjects() {
   const searchAll = await getAllProjects();
   return searchAll;
 }
 
-async function idProjects(idProject) {
+export async function idProjects(idProject) {
   if (!ObjectId.isValid(idProject)) {
     return false;
   }
@@ -19,7 +19,7 @@ async function idProjects(idProject) {
   return idSearch;
 }
 
-async function newProject({
+export async function newProject({
   titleProject, descriptionProject, linkApp, linkRepository, imageProject,
 }) {
   const postProject = await postNewProject({
@@ -32,16 +32,12 @@ async function newProject({
   return { postProject };
 }
 
-async function upProject(idProject, project) {
+export async function upProject(idProject, project) {
   const upProjects = await updateProject(idProject, project);
   return upProjects;
 }
 
-const delDataProject = async (idProject) => {
+export async function delDataProject(idProject) {
   const deleteData = await delProject(idProject);
   return deleteData;
-};
-
-export {
-  allProjects, idProjects, newProject, upProject, delDataProject,
-};
+}

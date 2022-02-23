@@ -28,9 +28,6 @@ app.use(cors());
 
 app.use('/portfolio', projectRoutes);
 
-// teste de rota de servidor
-app.get('/', (_req, res) => res.send({ message: 'Server OK' }));
-
 app.listen(PORT_URL, bd, () => {
   console.log('Servidor rodando');
 });
