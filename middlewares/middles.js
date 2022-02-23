@@ -1,5 +1,5 @@
 import StatusCodes from "http-status-codes";
-import findRepositoryProject from '../models/projectModels.js';
+import { findRepositoryProject, findIdProject } from '../models/projectModels.js';
 
 const validEntries = async (req, res, next) => {
   const {
@@ -20,12 +20,29 @@ const validEntries = async (req, res, next) => {
       .status(StatusCodes.BAD_REQUEST)
       .send({ message: "Todos os campos são obrigatórios" });
   }
-  if (findRepositoryProject) {
-    return res
-      .status(StatusCodes.CONFLICT)
-      .send({ message: 'Projeto já existe no banco de dados'});
-  }
   next();
 };
 
-export default validEntries;
+const matchProject = async (req, res, next) => {
+  const { linkRepository } = req.body;
+  const findProjectMatch = await findRepositoryProject(linkRepository)
+  if (findProjectMatch) {
+    return res
+    .status(StatusCodes.CONFLICT)
+    .send({ message: 'Projeto já existe no banco de dados'});
+  }
+  next();
+}
+
+const validId = async (req, res, next) => {
+  const { idProject } = req.params;
+  const idProjectMatch = await findIdProject(idProject);
+  if(!idProjectMatch) {
+    return res
+      .status(StatusCodes.NOT_FOUND)
+      .send({ message: 'Projeto não encontrado!' });
+  }
+  next();
+}
+
+export { validEntries, matchProject, validId };

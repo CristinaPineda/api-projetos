@@ -1,9 +1,10 @@
 import Project from '../models/Project.js';
 import StatusCodes from 'http-status-codes';
+import { allProjects, idProjects, newProject, upProject, delDataProject } from '../services/projectServices.js';
 
-const getAllProjects = async (req, res) => {
+const getAllProjects = async (_req, res) => {
   try {
-    const project = await Project.find();
+    const project = await allProjects();
     res.status(StatusCodes.OK).json(project);
   } catch (error) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error });
@@ -13,10 +14,9 @@ const getAllProjects = async (req, res) => {
 const getProjectsId = async (req, res) => {
   try {
     const { idProject } = req.params;
-    const projectId = await Project.findOne({ _id: idProject });
+    const projectId = await idProjects(idProject);
     if (!projectId) {
-      res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ message: 'Projeto não encontrado!' });
-      return;
+      return res.status(StatusCodes.NOT_FOUND).json({message: 'Projeto não encontrado'});
     }
     res.status(StatusCodes.OK).json(projectId);
   } catch (error) {
@@ -26,8 +26,20 @@ const getProjectsId = async (req, res) => {
 
 const postProject = async (req, res) => {  
   try {
-    let project = req.body;
-    await Project.create(project);
+    const {
+      titleProject,
+      descriptionProject,
+      linkApp,
+      linkRepository,
+      imageProject,
+    } = req.body;
+    await newProject({
+      titleProject,
+      descriptionProject,
+      linkApp,
+      linkRepository,
+      imageProject,
+    });
     res.status(StatusCodes.CREATED).json({ message: 'Projeto inserido no banco com sucesso' });
   } catch (error) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error });
@@ -36,7 +48,7 @@ const postProject = async (req, res) => {
 
 const patchProjectId = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { idProject } = req.params;
     const {
       titleProject,
       descriptionProject,
@@ -45,28 +57,25 @@ const patchProjectId = async (req, res) => {
       imageProject,
     } = req.body;
 
-    const upDateProject = await Project.updateOne();
-    if (upDateProject.matchedCount === 0) {
-      res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ message: 'Projeto não encontrado!' });
-      return;
+    const project = {
+      titleProject,
+      descriptionProject,
+      linkApp,
+      linkRepository,
+      imageProject,
     }
-    res.status(StatusCodes.OK).json({ message: 'Projeto atualizado com sucesso!' });
+
+    await upProject(idProject, project);
+    res.status(StatusCodes.OK).json({ message: 'Projeto atualizado com sucesso!', ...project });
   } catch (error) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error });
   }
 }
 
 const deleteProject = async (req, res) => {
-  const id = req.params.idProject;
-  const projectDel = await Project.findOne({ _id: id });
-
-  if (!projectDel) {
-    res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ message: 'Projeto não encontrado!' });
-    return;
-  }
-
+  const { idProject} = req.params;
   try {
-    await Project.deleteOne({ _id: id });
+    await delDataProject(idProject);
     res.status(StatusCodes.OK).json({ message: 'Projeto removido com sucesso!' });
   } catch (error) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error });
@@ -78,5 +87,5 @@ export {
   getProjectsId,
   postProject,
   patchProjectId,
-  deleteProject
+  deleteProject,
 }; 
