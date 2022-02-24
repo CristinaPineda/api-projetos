@@ -2,7 +2,10 @@
   "env": {
     "browser": true,
     "es2021": true,
-    "node": true
+    "node": true,
+    "jest": true,
+    "mocha": true,
+    "nyc": true
   },
   "extends": "eslint:recommended",
   "parserOptions": {

@@ -1,29 +1,43 @@
 import chai from 'chai';
-import chaihttp from 'chai-http';
+import chaiHttp from 'chai-http';
 import app from '../index.mjs';
-import Project from '../models/Project.js';
+import mongoose from '../database/connection.js';
+// import { describe } from 'mocha';
 
-chai.use(chaihttp);
+chai.use(chaiHttp);
 const { expect } = chai;
 
-const mockData = {
-  titleProject: 'titleTeste',
-  descriptionProject: 'descrição de teste',
-  linkApp: 'http://linkTest',
-  linkRepository: 'http://repositoryTest', 
-  imageProject: 'https://imageTest',
-};
+// const mockData = {
+//   titleProject: 'titleTeste',
+//   descriptionProject: 'descrição de teste',
+//   linkApp: 'http://linkTest',
+//   linkRepository: 'http://repositoryTest', 
+//   imageProject: 'https://imageTest',
+// };
 
-describe('[POST] - Teste da rota /project com post', () => {
-  let response = {};
-  
-  before(async () => {
-    Project.dropCollection('projects');
+describe('[GET] - Teste da rota /project com GET', () => {
+  describe('1 - Quando as requisições são realizadas com sucesso.', () => {
+    let response = {};
     
-    response = await chai.request(app).post('/project').send(mockData);
-  });
+    before(async () => {
+      mongoose.connect();
+      response = await chai.request(app).get('/portfolio/project').send();
+    });
+    
+    after(async () => {
+      mongoose.disconnect();
+    });
+    
+    it('1.1 - Requisição "GET" é feita com sucesso', () => {
+      expect(response).to.have.status(200);
+    });
+    
+    it('1.2 - Deve retornar um array', () => {
+      expect(response.body).to.be.a('array');
+    });
 
-  it('Requisição "POST" é feita com sucesso', () => {
-    expect(response).to.have.status(201);
+    it('1.3 - Deve retornar um array de objetos', () => {
+      expect(response.body[0]).to.be.a('object');
+    });
   });
 });
