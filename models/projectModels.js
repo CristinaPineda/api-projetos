@@ -1,34 +1,28 @@
-import { ObjectId } from 'mongodb';
-import Project from './Project.js';
+import mongoose from '../database/connection.js';
 
-export async function getAllProjects() {
-  const searchProject = await Project.find();
-  return searchProject;
-}
+const schemaProject = new mongoose.Schema({
+  titleProject: {
+    type: String,
+    required: true,
+  },
+  descriptionProject: {
+    type: String,
+    required: true,
+  },
+  linkApp: {
+    type: String,
+    required: true,
+  },
+  linkRepository: {
+    type: String,
+    required: true,
+  },
+  imageProject: {
+    type: String,
+    required: true,
+  },
+});
 
-export async function findIdProject(idProject) {
-  if (!ObjectId.isValid(idProject)) return null;
-  const searchId = await Project.findOne({ _id: ObjectId(idProject) });
-  return searchId;
-}
+const projects = mongoose.model('Project', schemaProject);
 
-export async function findRepositoryProject(linkRepository) {
-  const linkProject = await Project.findOne({ linkRepository });
-  return linkProject;
-}
-
-export async function postNewProject(project) {
-  const dataProject = await Project.create(project);
-  return dataProject;
-}
-
-export async function updateProject(idProject, project) {
-  const update = await Project.updateOne({ _id: ObjectId(idProject) }, project);
-  return update;
-}
-
-export async function delProject(idProject) {
-  if (!ObjectId.isValid(idProject)) return null;
-  const searchId = await Project.deleteOne({ _id: ObjectId(idProject) });
-  return searchId;
-}
+export default projects;

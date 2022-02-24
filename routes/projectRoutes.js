@@ -1,7 +1,11 @@
 import { Router } from 'express';
-import { validEntries, matchProject, validId } from '../middlewares/middlewares.js';
 import {
-  getAllProjects,
+  validEntries,
+  matchProject,
+  validId,
+} from '../middlewares/middlewares.js';
+import {
+  getProjects,
   getProjectsId,
   postProject,
   patchProjectId,
@@ -10,7 +14,7 @@ import {
 
 const router = Router();
 
-router.get('/project', getAllProjects);
+router.get('/project', getProjects);
 router.get('/project/:idProject', getProjectsId);
 router.post('/project', validEntries, matchProject, postProject);
 router.patch('/project/:idProject', validId, patchProjectId);

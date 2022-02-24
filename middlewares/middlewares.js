@@ -1,5 +1,5 @@
 import StatusCodes from 'http-status-codes';
-import { findRepositoryProject, findIdProject } from '../models/projectModels.js';
+import { findRepositoryProject, findIdProject } from '../services/projectServices.js';
 
 export async function validEntries(req, res, next) {
   try {
@@ -16,7 +16,7 @@ export async function validEntries(req, res, next) {
         .send({ message: 'Todos os campos são obrigatórios' });
     }
   } catch (error) {
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error });
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: error.message });
   }
   next();
 }
@@ -31,7 +31,7 @@ export async function matchProject(req, res, next) {
         .send({ message: 'Projeto já existe no banco de dados' });
     } 
   } catch (error) {
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error });
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: error.message });
   }
   next();
 }
@@ -46,7 +46,7 @@ export async function validId(req, res, next) {
         .send({ message: 'Projeto não encontrado!' });
     }
   } catch (error) {
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error });
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: error.message });
   }
   next();
 }

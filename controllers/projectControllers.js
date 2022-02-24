@@ -1,6 +1,6 @@
 import StatusCodes from 'http-status-codes';
 import {
-  allProjects, idProjects, newProject, upProject, delDataProject,
+  getAllProjects, findIdProject, postNewProject, updateProject, delProject
 } from '../services/projectServices.js';
 
 async function body(req) {
@@ -16,35 +16,35 @@ async function body(req) {
   };
 }
 
-export async function getAllProjects(_req, res) {
+export async function getProjects(_req, res) {
   try {
-    const project = await allProjects();
+    const project = await getAllProjects();
     return res.status(StatusCodes.OK).json(project);
   } catch (error) {
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error });
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: error.message });
   }
 }
 
 export async function getProjectsId(req, res) {
   try {
     const { idProject } = req.params;
-    const projectId = await idProjects(idProject);
+    const projectId = await findIdProject(idProject);
     if (!projectId) {
       return res.status(StatusCodes.NOT_FOUND).json({ message: 'Projeto não encontrado' });
     }
     return res.status(StatusCodes.OK).json(projectId);
   } catch (error) {
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error });
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: error.message});
   }
 }
 
 export async function postProject(req, res) {
   try {
     const project = await body(req);
-    await newProject(project);
+    await postNewProject(project);
     return res.status(StatusCodes.CREATED).json({ message: 'Projeto inserido no banco com sucesso' });
   } catch (error) {
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error });
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: error.message });
   }
 }
 
@@ -52,19 +52,19 @@ export async function patchProjectId(req, res) {
   try {
     const { idProject } = req.params;
     const project = await body(req);
-    await upProject(idProject, project);
+    await updateProject(idProject, project);
     return res.status(StatusCodes.OK).json({ message: 'Projeto atualizado com sucesso!', ...project });
   } catch (error) {
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error });
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: error.message });
   }
 }
 
 export async function deleteProject(req, res) {
   const { idProject } = req.params;
   try {
-    await delDataProject(idProject);
+    await delProject(idProject);
     return res.status(StatusCodes.OK).json({ message: 'Projeto removido com sucesso!' });
   } catch (error) {
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error });
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: error.message });
   }
 }

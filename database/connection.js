@@ -4,18 +4,15 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const { connect, connection } = mongoose;
-
 const { KEY, URI } = process.env;
 
-connect(
-  `${KEY}${URI}`,
-)
-  .then(() => {
-    console.log('MongodbAtlas conectado');
+mongoose
+  .connect(`${KEY}${URI}`, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
   })
-  .catch(() => console.log(`Banco não conectado ${KEY}`));
+  .catch((err) => {
+    console.error(err);
+  });
 
-const bd = connection;
-
-export default bd;
+export default mongoose;
