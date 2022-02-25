@@ -6,9 +6,9 @@
   "type": "module",
   "scripts": {
     "start": "node index.mjs",
-    "test": "mocha ./__tests__ --recursive --timeout 10000 --exit",
+    "test": "mocha ./__tests__ --timeout 10000 --exit",
     "lint": "./node_modules/.bin/eslint *.js",
-    "test:coverage": "nyc --all --timeout 10000 npm run test"
+    "coverage": "c8 npm run test"
   },
   "keywords": [],
   "author": "",
@@ -26,8 +26,7 @@
     "jest": "^27.5.1",
     "mongodb": "^4.4.0",
     "mongodb-memory-server": "^8.3.0",
-    "mongoose": "^6.2.2",
-    "nyc": "^15.1.0"
+    "mongoose": "^6.2.2"
   },
   "devDependencies": {
     "chai": "^4.3.6",
@@ -39,11 +38,5 @@
     "mock-mongoose": "^8.0.1-a",
     "nodemon": "^2.0.14",
     "sinon": "^13.0.1"
-  },
-  "nyc": {
-    "branches": "&gt;80",
-    "lines": "&gt;80",
-    "functions": "&gt;80",
-    "statements": "&gt;80"
   }
 }
