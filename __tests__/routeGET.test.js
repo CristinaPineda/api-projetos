@@ -3,18 +3,10 @@ import chaiHttp from 'chai-http';
 import app from '../index.mjs';
 import mongoose from '../database/connection.js';
 import StatusCodes from 'http-status-codes';
+import { ID } from './helpers.js';
+
 chai.use(chaiHttp);
 const { expect } = chai;
-
-const mockId = '6191461043d905b174409e7e';
-
-const mockData = {
-  titleProject: 'titleTeste',
-  descriptionProject: 'descrição de teste',
-  linkApp: 'http://linkTest',
-  linkRepository: 'http://repositoryTest',
-  imageProject: 'https://imageTest',
-};
 
 describe('[GET] - Teste da rota /project com GET', () => {
   describe('1 - Requisição de busca à todos os projetos já inclusos no banco de dados.', () => {
@@ -53,12 +45,12 @@ describe('[GET] - Teste da rota /project com GET', () => {
 });
 
 describe('[GET] - Teste da rota /project/:id com GET', () => {
-  describe('2 - Requisição de busca de projeto já incluso no banco de dados pelo seu ID.', () => {
+  describe('2 - Requisição de busca por ID de projeto já incluso no banco de dados.', () => {
     let response = {};
 
     before(async () => {
       mongoose.connect();
-      response = await chai.request(app).get(`/portfolio/project/${mockId}`).send();
+      response = await chai.request(app).get(`/portfolio/project/${ID.mockId}`).send();
     });
 
     it('2.1 - Requisição "GET" é feita com sucesso', () => {
@@ -83,4 +75,28 @@ describe('[GET] - Teste da rota /project/:id com GET', () => {
     });
   });
 });
+
+describe('[GET-ERROR] - Teste da rota /project/:id com GET ', () => {
+  describe('3 - Erro na requisição de busca por ID de projeto já incluso no banco de dados.', () => {
+    let response = {};
+
+    before(async () => {
+      mongoose.connect();
+      response = await chai.request(app).get(`/portfolio/project/${ID.mockIdErr}`).send();
+    });
+
+    it('3.1 - Requisição "GET" retorna um erro', () => {
+      expect(response).to.have.status(StatusCodes.NOT_FOUND);
+    });
+
+    it('3.2 - Deve retornar um object', () => {
+      expect(response.body).to.be.a('object');
+    });
+
+    it('3.3 - Deve retornar um objeto com a propriedade "message" com o erro da requisição', () => {
+      expect(response.body).to.have.property('message');
+      expect(response.body.message).to.be.equal('Projeto não encontrado');
+    });
+  })
+})
 
