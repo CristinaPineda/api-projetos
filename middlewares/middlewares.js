@@ -13,7 +13,7 @@ export async function validEntries(req, res, next) {
       || !imageProject) {
       return res
         .status(StatusCodes.BAD_REQUEST)
-        .send({ message: 'Todos os campos são obrigatórios' });
+        .send({ message: 'Todos os campos são obrigatórios!' });
     }
   } catch (error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: error.message });
@@ -28,7 +28,7 @@ export async function matchProject(req, res, next) {
     if (findProjectMatch) {
       return res
         .status(StatusCodes.CONFLICT)
-        .send({ message: 'Projeto já existe no banco de dados' });
+        .send({ message: 'Projeto já existe no banco de dados!' });
     } 
   } catch (error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: error.message });

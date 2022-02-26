@@ -33,7 +33,7 @@ describe('[GET] - Teste da rota /project com GET', () => {
       expect(response.body[0]).to.be.not.empty;
     });
 
-    it('1.5 - Deve retornar um objeto com todas as propriedades de um projeto', () => {
+    it('1.5 - Deve retornar um objeto com todas as propriedades de um projeto válido', () => {
       expect(response.body[0]).to.have.property('_id');
       expect(response.body[0]).to.have.property('titleProject');
       expect(response.body[0]).to.have.property('descriptionProject');
@@ -50,7 +50,10 @@ describe('[GET] - Teste da rota /project/:id com GET', () => {
 
     before(async () => {
       mongoose.connect();
-      response = await chai.request(app).get(`/portfolio/project/${ID.mockId}`).send();
+      response = await chai
+        .request(app)
+        .get(`/portfolio/project/${ID.mockId}`)
+        .send();
     });
 
     it('2.1 - Requisição "GET" é feita com sucesso', () => {
@@ -65,7 +68,7 @@ describe('[GET] - Teste da rota /project/:id com GET', () => {
       expect(response.body).to.be.not.empty;
     });
 
-    it('2.4 - Deve retornar um objeto com todas as propriedades de um projeto', () => {
+    it('2.4 - Deve retornar um objeto com todas as propriedades de um projeto válido', () => {
       expect(response.body).to.have.property('_id');
       expect(response.body).to.have.property('titleProject');
       expect(response.body).to.have.property('descriptionProject');
@@ -82,7 +85,10 @@ describe('[GET-ERROR] - Teste da rota /project/:id com GET ', () => {
 
     before(async () => {
       mongoose.connect();
-      response = await chai.request(app).get(`/portfolio/project/${ID.mockIdErr}`).send();
+      response = await chai
+        .request(app)
+        .get(`/portfolio/project/${ID.mockIdErr}`)
+        .send();
     });
 
     it('3.1 - Requisição "GET" retorna um erro', () => {
@@ -97,6 +103,5 @@ describe('[GET-ERROR] - Teste da rota /project/:id com GET ', () => {
       expect(response.body).to.have.property('message');
       expect(response.body.message).to.be.equal('Projeto não encontrado');
     });
-  })
-})
-
+  });
+});
