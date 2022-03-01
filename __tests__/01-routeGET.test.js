@@ -1,6 +1,6 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import app from '../index.mjs';
+import app from '../index.js';
 import mongoose from '../database/connection.js';
 import StatusCodes from 'http-status-codes';
 import { ID } from './helpers.js';
