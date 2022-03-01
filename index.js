@@ -29,7 +29,7 @@ app.use(cors());
 app.use('/portfolio', projectRoutes);
 
 app.listen(PORT_URL, () => {
-  console.log('Servidor rodando');
+  console.log(`Servidor rodando na porta ${PORT_URL}`);
 });
 
 export default app;
