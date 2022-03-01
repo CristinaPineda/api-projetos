@@ -8,8 +8,6 @@ const { KEY, URI } = process.env;
 
 mongoose
   .connect(`${KEY}${URI}`, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
   })
   .catch((err) => {
     console.error(err);
