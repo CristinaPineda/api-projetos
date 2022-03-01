@@ -41,8 +41,9 @@ export async function getProjectsId(req, res) {
 export async function postProject(req, res) {
   try {
     const project = await body(req);
-    await postNewProject(project);
-    return res.status(StatusCodes.CREATED).json({ message: 'Projeto inserido no banco com sucesso' });
+    const id = await postNewProject(project);
+    const _id = id._id;
+    return res.status(StatusCodes.CREATED).json({ message: 'Projeto inserido no banco com sucesso!', _id, ...project });
   } catch (error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: error.message });
   }

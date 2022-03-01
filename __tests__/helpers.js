@@ -3,10 +3,18 @@ export const ID = {
   mockIdErr: '0101010101010101010',
 };
 
-export const MOCKDATA = {
-  titleProject: 'titleTeste',
+export const MOCKDATAPOST = {
+  titleProject: 'titleTestePost',
   descriptionProject: 'descrição de teste',
   linkApp: 'http://linkTest',
-  linkRepository: 'http://repositoryTest',
+  linkRepository: 'http://repositoryTestPost',
+  imageProject: 'https://imageTest',
+};
+
+export const MOCKDATADEL = {
+  titleProject: 'titleTesteDel',
+  descriptionProject: 'descrição de teste',
+  linkApp: 'http://linkTest',
+  linkRepository: 'http://repositoryTestDel',
   imageProject: 'https://imageTest',
 };
