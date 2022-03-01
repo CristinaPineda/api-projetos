@@ -54,7 +54,8 @@ export async function patchProjectId(req, res) {
     const { idProject } = req.params;
     const project = await body(req);
     await updateProject(idProject, project);
-    return res.status(StatusCodes.OK).json({ message: 'Projeto atualizado com sucesso!', ...project });
+    const _id = idProject;
+    return res.status(StatusCodes.OK).json({ message: 'Projeto atualizado com sucesso!', _id,  ...project });
   } catch (error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: error.message });
   }

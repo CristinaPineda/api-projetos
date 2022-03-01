@@ -1,6 +1,6 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import app from '../index.mjs';
+import app from '../index.js';
 import mongoose from '../database/connection.js';
 import StatusCodes from 'http-status-codes';
 import { MOCKDATAPOST } from './helpers.js';
@@ -84,42 +84,40 @@ describe('[POST-ERROR] - Teste da rota /project/ com POST ', () => {
   });
 });
 
-// describe('[POST-ERROR] - Teste da rota /project/ com POST ', () => {
-//   describe('3 - Erro na requisição de inclusão de projeto no banco de dados. Projeto sem título', () => {
-//     let response = {};
+describe('[POST-ERROR] - Teste da rota /project/ com POST ', () => {
+  describe('3 - Erro na requisição de inclusão de projeto no banco de dados. Projeto sem título', () => {
+    let response = {};
 
-//     const ERRMOCK = { 
-//       descriptionProject: MOCKDATAPOST.descriptionProject,
-//       linkApp: MOCKDATAPOST.linkApp,
-//       linkRepository: MOCKDATAPOST.linkRepository,
-//       imageProject: MOCKDATAPOST.imageProject,
-//     };
+    const ERRMOCK = { 
+      descriptionProject: MOCKDATAPOST.descriptionProject,
+      linkApp: MOCKDATAPOST.linkApp,
+      linkRepository: MOCKDATAPOST.linkRepository,
+      imageProject: MOCKDATAPOST.imageProject,
+    };
 
-//     before(async () => {
-//       mongoose.connect();
-//       response = await chai
-//         .request(app)
-//         .post('/portfolio/project')
-//         .send(ERRMOCK);
-//     });
+    before(async () => {
+      mongoose.connect();
+      response = await chai
+        .request(app)
+        .post('/portfolio/project')
+        .send(ERRMOCK);
+    });
 
-//     it('3.1 - Requisição "POST" retorna um erro', () => {
-//       expect(response).to.have.status(StatusCodes.BAD_REQUEST);
-//     });
+    it('3.1 - Requisição "POST" retorna um erro', () => {
+      expect(response).to.have.status(StatusCodes.BAD_REQUEST);
+    });
 
-//     it('3.2 - Deve retornar um object', () => {
-//       expect(response.body).to.be.a('object');
-//     });
+    it('3.2 - Deve retornar um object', () => {
+      expect(response.body).to.be.a('object');
+    });
 
-//     it('3.3 - Deve retornar um objeto não vazio', () => {
-//       expect(response.body).to.be.not.empty;
-//     });
+    it('3.3 - Deve retornar um objeto não vazio', () => {
+      expect(response.body).to.be.not.empty;
+    });
 
-//     it('3.4 - Deve retornar um objeto com a propriedade "message" com o erro da requisição', () => {
-//       expect(response.body).to.have.property('message');
-//       expect(response.body.message).to.be.equal('Todos os campos são obrigatórios!');
-//     });
-//   });
-// });
-
-
+    it('3.4 - Deve retornar um objeto com a propriedade "message" com o erro da requisição', () => {
+      expect(response.body).to.have.property('message');
+      expect(response.body.message).to.be.equal('Todos os campos são obrigatórios!');
+    });
+  });
+});

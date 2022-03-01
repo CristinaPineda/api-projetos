@@ -2,10 +2,10 @@
   "name": "api-projetos",
   "version": "1.0.0",
   "description": "",
-  "main": "index.mjs",
+  "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node index.mjs",
+    "start": "node index.js",
     "test": "mocha ./__tests__ --timeout 10000 --exit",
     "lint": "./node_modules/.bin/eslint *.js",
     "coverage": "c8 npm run test"

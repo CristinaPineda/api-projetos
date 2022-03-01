@@ -4,7 +4,7 @@ export const ID = {
 };
 
 export const MOCKDATAPOST = {
-  titleProject: 'titleTestePost',
+  titleProject: 'titleTestePostAndPatch',
   descriptionProject: 'descrição de teste',
   linkApp: 'http://linkTest',
   linkRepository: 'http://repositoryTestPost',

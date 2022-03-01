@@ -1,6 +1,6 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import app from '../index.mjs';
+import app from '../index.js';
 import mongoose from '../database/connection.js';
 import StatusCodes from 'http-status-codes';
 import { ID, MOCKDATADEL } from './helpers.js';
@@ -39,7 +39,7 @@ describe('[DELETE] - Teste da rota /project/:id com DELETE', () => {
 });
 
 describe('[DELETE-ERROR] - Teste da rota /project/:id com DELETE', () => {
-  describe('1 - Erro na requisição para deletar projeto do banco de dados.', () => {
+  describe('2 - Erro na requisição para deletar projeto do banco de dados.', () => {
     let response = {};
 
     before(async () => {
@@ -47,19 +47,19 @@ describe('[DELETE-ERROR] - Teste da rota /project/:id com DELETE', () => {
       response = await chai.request(app).delete(`/portfolio/project/${ID.mockIdErr}`).send();
     });
 
-    it('1.1 - Erro na requisição "DELETE"', () => {
+    it('2.1 - Erro na requisição "DELETE"', () => {
       expect(response).to.have.status(StatusCodes.NOT_FOUND);
     });
 
-    it('1.2 - Deve retornar um objeto', () => {
+    it('2.2 - Deve retornar um objeto', () => {
       expect(response.body).to.be.a('object');
     });
 
-    it('1.3 - Deve retornar um objeto não vazio', () => {
+    it('2.3 - Deve retornar um objeto não vazio', () => {
       expect(response.body).to.be.not.empty;
     });
 
-    it('1.4 - Deve retornar um objeto com a propriedade "message" com o erro da requisição', () => {
+    it('2.4 - Deve retornar um objeto com a propriedade "message" com o erro da requisição', () => {
       expect(response.body).to.have.property('message');
       expect(response.body.message).to.be.equal('Projeto não encontrado!');
     });
